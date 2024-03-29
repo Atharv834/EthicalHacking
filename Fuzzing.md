@@ -1,6 +1,6 @@
-:
 
-**### Web Application Fuzzing Techniques**
+
+#  Web Application Fuzzing Techniques
 
 This guide explores efficient techniques for discovering hidden directories and files within web applications using fuzzing tools like Wfuzz and ffuf. These tools can help identify potentially sensitive information or vulnerabilities that might be overlooked during manual testing.
 
