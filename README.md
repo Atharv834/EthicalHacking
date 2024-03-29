@@ -1,3 +1,4 @@
+
 # Bug Bounty Command Repository
 
 Welcome to the Bug Bounty Command Repository! This repository contains a collection of useful commands and notes for bug bounty hunters. Whether you're a beginner or an experienced hunter, you'll find valuable resources here to aid in your bug bounty endeavors.
@@ -12,7 +13,8 @@ Welcome to the Bug Bounty Command Repository! This repository contains a collect
     - [Subdomain Check](#subdomain-check)
     - [Privilege Escalation](#privilege-escalation)
     - [RCE (Remote Code Execution)](#rce)
-
+    - [File Upload Bypass](#file-upload-bypass)
+3. [Notes](#notes)
 
 ## Introduction
 
@@ -44,8 +46,15 @@ Bug bounty hunting involves identifying and reporting security vulnerabilities i
 
 - [RCE Commands](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/rce.md)
 
+### File Upload Bypass
+
+- [File Upload Bypass](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/File%20upload%20bypass.md)
+
 ## Notes
 
 Contributions to this repository are welcome! If you have any useful bug bounty commands or notes to add, please feel free to submit a pull request.
 
-Happy hunting! 🐞🔍
+Please note that while some notes in this repository are written by the author, others have been retrieved from various sources on the internet for educational purposes. The author takes no responsibility for the accuracy or reliability of the information provided in these notes. Users are encouraged to verify the information independently and use it responsibly.
+
+⚠️ Happy hunting! 🐞🔍
+```
