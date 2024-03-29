@@ -1,16 +1,58 @@
-# USING fuzzing ,wfuzz,ffuf tools
- 1) Dirserach gitrepso - in   db-> dic.txt  and many more check here https://github.com/maurosoria/dirsearch for sensitive directories sucha s /admin and many more
+:
 
-2) Use burpusite indtruder functions qand increase the threads to 100 and paste the woeldits to do so and starr the attack youll get and if you want ot match somewthing then add it in grep command 
+**### Web Application Fuzzing Techniques**
 
-### Using Wfuzz
-wfuzz -c -z file,/usr/share/wordlists/wfuzz/general/common.txt --hc 404 http://10.10.10.10/FUZZ
+This guide explores efficient techniques for discovering hidden directories and files within web applications using fuzzing tools like Wfuzz and ffuf. These tools can help identify potentially sensitive information or vulnerabilities that might be overlooked during manual testing.
 
--c: This option tells wfuzz to print the output in a nice format.
---hc 404: This option tells wfuzz to hide responses with the status code 404. This can be useful to filter out known non-existent pages.
+**1. Directory Enumeration with Dirsearch**
 
-### Using ffuf -
-"ffuf -w /usr/share/seclists/Discovery/Web-Content/big.txt  -recursion -recursion-depth 2   -u http://10.10.10.10/FUZZ -e .php,.txt,.html,.js,.css,.json,.sh,.py -t 100"
+- **Installation and Usage:**
 
--e .php,.txt,.html,.js,.css,.json,.sh,.py: This option specifies the extensions to search for. ffuf will append each extension to the end of the items in the wordlist and make a request to the server.
-t 10: This option sets the number of threads to 10
+  ```bash
+  git clone https://github.com/maurosoria/dirsearch dirsearch
+  cd dirsearch
+  python dirsearch.py -u http://10.10.10.10 -w db->dic.txt
+  ```
+
+  Replace `http://10.10.10.10` with the target URL and `db->dic.txt` with the path to your wordlist containing potential directory names. Dirsearch will attempt to access each directory in the wordlist and report potentially existing directories based on the server's response.
+
+**2. Brute-Force Attacks with Burp Suite Intruder**
+
+- **Assumptions:**
+
+  This example assumes you've already configured Burp Suite Intruder to target a specific parameter or endpoint within the web application.
+
+- **Steps:**
+
+  1. **Load Wordlist:** Paste your wordlist (e.g., usernames, passwords) into the Intruder payload position.
+  2. **Increase Threads:** Within the Intruder settings, adjust the number of threads (concurrent requests) to 100 (or a number suitable for your system's capabilities).
+  3. **Launch Attack:** Start the Intruder attack.
+  4. **Filter Results (Optional):** If necessary, use the `grep` command to filter the attack results based on specific patterns. For example, to identify responses containing the string "login successful," you could use:
+
+     ```bash
+     grep "login successful" output.txt
+     ```
+
+**3. Efficient Enumeration with ffuf**
+
+- **Installation:**
+
+  Refer to the ffuf documentation for installation instructions specific to your platform: [https://github.com/ffuf/ffuf](https://github.com/ffuf/ffuf)
+
+- **Command Breakdown:**
+
+  ```bash
+  ffuf -w /usr/share/seclists/Discovery/Web-Content/big.txt \
+      -recursion -recursion-depth 2 \
+      -u http://10.10.10.10/FUZZ \
+      -e .php,.txt,.html,.js,.css,.json,.sh,.py \
+      -t 10
+  ```
+
+  * `-w /usr/share/seclists/Discovery/Web-Content/big.txt`: Path to your wordlist containing potential directories or filenames.
+  * `-recursion`: Enables recursive searching, checking subdirectories within discovered directories.
+  * `-recursion-depth 2`: Specifies the maximum depth of recursive searching (2 levels in this case).
+  * `-u http://10.10.10.10/FUZZ`: Target URL with the placeholder `FUZZ` for where ffuf will insert items from the wordlist.
+  * `-e .php,.txt,.html,.js,.css,.json,.sh,.py`: Defines comma-separated file extensions to enumerate. ffuf will append each extension to the wordlist entries.
+  * `-t 10`: Sets the number of concurrent threads to 10.
+mbining these techniques and following best practices, you can conduct effective web application fuzzing to uncover potential security weaknesses.
