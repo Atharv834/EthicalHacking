@@ -1,4 +1,4 @@
-USING fuzzing ,wfuzz,ffuf tools
+##USING fuzzing ,wfuzz,ffuf tools
  1) Dirserach gitrepso - in   db-> dic.txt  and many more check here https://github.com/maurosoria/dirsearch for sensitive directories sucha s /admin and many more
 
 2) Use burpusite indtruder functions qand increase the threads to 100 and paste the woeldits to do so and starr the attack youll get and if you want ot match somewthing then add it in grep command 
