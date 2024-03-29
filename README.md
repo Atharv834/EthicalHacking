@@ -12,8 +12,7 @@ Welcome to the Bug Bounty Command Repository! This repository contains a collect
     - [Subdomain Check](#subdomain-check)
     - [Privilege Escalation](#privilege-escalation)
     - [RCE (Remote Code Execution)](#rce)
-3. [Notes](#notes)
-4. [Contributing](#contributing)
+
 
 ## Introduction
 
