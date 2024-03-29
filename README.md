@@ -23,53 +23,29 @@ Bug bounty hunting involves identifying and reporting security vulnerabilities i
 
 ### XSS
 
-```bash
-# Command for testing XSS vulnerabilities
-xss_scan --url [http://target.com/page.php?parameter=value](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/1linerxss.md)
-```
+- [One-Liner XSS Commands](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/1linerxss.md)
 
 ### Fuzzing
 
-```bash
-# Fuzzing with OWASP ZAP
-zap-cli --fuzzer fuzz_xss.py --output fuzz_report.html
-```
+- [Fuzzing Commands](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/Fuzzing.md)
 
 ### Website Recon
 
-```bash
-# Subdomain enumeration with Sublist3r
-python3 sublist3r.py -d target.com > subdomains.txt
-```
+- [Website Recon Commands](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/Website%20recon%20.md)
 
 ### Subdomain Check
 
-```bash
-# Check subdomain validity with amass
-amass enum -d target.com -o subdomains.txt
-```
+- [Subdomain Check Commands](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/Subdomain%20check.md)
 
 ### Privilege Escalation
 
-```bash
-# Check for SUID binaries
-find / -type f -perm -4000 -exec ls -la {} 2>/dev/null \;
-```
+- [Linux Privilege Escalation Commands](https://github.com/Atharv834/Hacking/tree/main/priv%20esc%20linux)
 
-### RCE
+### RCE (Remote Code Execution)
 
-```bash
-# Test for RCE using a vulnerable parameter
-curl -X POST http://target.com/vulnerable_endpoint --data "param=$(uname -a)"
-```
+- [RCE Commands](https://github.com/Atharv834/Hacking/blob/main/Bug%20bounty%20/rce.md)
 
 ## Notes
-
-- Always ensure you have permission before testing any targets.
-- Use automation tools like Burp Suite, OWASP ZAP, and Nmap to expedite the hunting process.
-- Document your findings thoroughly and report them responsibly to the appropriate channels.
-
-## Contributing
 
 Contributions to this repository are welcome! If you have any useful bug bounty commands or notes to add, please feel free to submit a pull request.
 
