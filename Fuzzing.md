@@ -18,20 +18,13 @@ This guide explores efficient techniques for discovering hidden directories and 
 
 **2. Brute-Force Attacks with Burp Suite Intruder**
 
-- **Assumptions:**
-
-  This example assumes you've already configured Burp Suite Intruder to target a specific parameter or endpoint within the web application.
-
 - **Steps:**
 
   1. **Load Wordlist:** Paste your wordlist (e.g., usernames, passwords) into the Intruder payload position.
-  2. **Increase Threads:** Within the Intruder settings, adjust the number of threads (concurrent requests) to 100 (or a number suitable for your system's capabilities).
+  2. **Increase Threads:** Within the Intruder settings, adjust the number of threads (concurrent requests) to 100 
   3. **Launch Attack:** Start the Intruder attack.
-  4. **Filter Results (Optional):** If necessary, use the `grep` command to filter the attack results based on specific patterns. For example, to identify responses containing the string "login successful," you could use:
+  4. **Filter Results (Optional):** Use the grep command to match something in the response 
 
-     ```bash
-     grep "login successful" output.txt
-     ```
 
 **3. Efficient Enumeration with ffuf**
 
@@ -55,4 +48,3 @@ This guide explores efficient techniques for discovering hidden directories and 
   * `-u http://10.10.10.10/FUZZ`: Target URL with the placeholder `FUZZ` for where ffuf will insert items from the wordlist.
   * `-e .php,.txt,.html,.js,.css,.json,.sh,.py`: Defines comma-separated file extensions to enumerate. ffuf will append each extension to the wordlist entries.
   * `-t 10`: Sets the number of concurrent threads to 10.
-mbining these techniques and following best practices, you can conduct effective web application fuzzing to uncover potential security weaknesses.
