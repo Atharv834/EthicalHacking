@@ -1,14 +1,4 @@
 
-```markdown
-### .htaccess Configuration for Changing Backend Configuration
-
-```apache
-AddType application/x-httpd-php .PHP
-# means all files with the extension PHP will be executed !!
-```
-
-Then try to upload the .PHP file and see whether the file is accepted or not!
-
 ### File Upload Bypass
 
 #### Blacklisting Bypass
@@ -49,5 +39,3 @@ Then try to upload the .PHP file and see whether the file is accepted or not!
 - file.png.jpg.php
 - file.php%00.png%00.jpg
 ```
-
-You can copy and paste this Markdown content into your Markdown file, and it will be properly formatted.
