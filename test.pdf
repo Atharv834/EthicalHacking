@@ -1,1 +1,0 @@
-{"pdf_version": "1.7", "pages": [{"page_id": 1, "open_action": {"action_type": "JavaScript", "javascript": "app.alert('This PDF file is designed to steal your personal information.')"}}]}
