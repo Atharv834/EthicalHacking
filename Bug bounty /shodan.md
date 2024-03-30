@@ -1,4 +1,4 @@
-```markdown
+
 ###
 ```bash
 http.favicon.hash:-335242539 "3992" -BIGIP
